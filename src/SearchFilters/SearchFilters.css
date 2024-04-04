@@ -1,0 +1,86 @@
+.search-section {
+  position: relative;
+  background-color: #F8F8F8; /* Background color for the left side block */
+}
+
+.search-filters {
+  position: fixed;
+  top: 74px;
+  left: 0;
+  width: 300px; /* Adjust the width as necessary */
+  background-color: #FFFFFF;
+  padding: 20px;
+  height: calc(100vh - 74px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-right: 2px solid red; /* Right border as per your design */
+}
+
+
+
+.filter-title,
+.filter-subtitle {
+  font-size: 19px;
+  font-weight: medium;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #F8F8F8; /* Background color for the title */
+  padding: 10px; /* Padding for the title */
+  margin: -20px; /* Negative margin to extend the title background */
+  margin-bottom: 10px; /* Reset bottom margin for spacing */
+}
+
+.filter-input {
+  margin-bottom: 20px;
+}
+
+.filter-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.filter-input input,
+.filter-input select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #CED4DA;
+  border-radius: 20px;
+}
+
+.filter-input-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-input.half {
+  width: calc(50% - 10px);
+}
+
+.checkbox-group label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.checkbox-group label input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.search-button-2 {
+  background-color: #42B683;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 19px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+}

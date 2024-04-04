@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.header {
+  position: fixed; /* Stick to the top */
+  top: 0; /* Position at the top of the page */
+  width: 100%; /* Full width */
+  display: flex;
+  justify-content: space-between; /* Aligns children with space between */
+  align-items: center; /* Vertically center children */
+  padding: 20px;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+  background-color: transparent; /* No background */
+}
+
+.auth-buttons {
+  position: absolute;
+  right: 40px; /* Aligns the buttons to the right */
+  top: 20px; /* Aligns the buttons to the top */
+}
+
+.header-search::after { /* Pseudo-element for the line */
+  content: '';
+  display: block;
+  height: 1px;
+  background-color: #CBCACA; /* Line color */
+  width: 100%;
+  position: absolute;
+  bottom: -35px; /* Align it right below the header */
+  left: 0;
+}
+
+
+.header-center {
+  width: 100%; /* Take up all available width */
+  display: flex;
+  justify-content: center; /* Center the title */
+}
+
+.header-title {
+  font-family: 'Encode Sans Semi Condensed', sans-serif;
+  font-size: 31px;
+  font-weight: 500;
+  position: absolute; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  margin: 0 auto;
+}
+
+.auth-buttons button {
+  background-color: #2AB683;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
+}
+
+.auth-buttons button.log-in {
+  background-color: transparent;
+  color: #2AB683;
+  border: 1px solid #2AB683;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition for background, border, and text color */
+}
+
+.auth-buttons button:hover {
+  background-color: #229e6f; /* Darker green on hover */
+  color: #fff;
+}
+
+
+
+

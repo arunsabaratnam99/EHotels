@@ -1,0 +1,33 @@
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 200px;
+  } 
+  
+  .hero-text h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 45px; /* Your specified size */
+    color: #333; /* Default color, change if needed */
+  }
+  
+  .hero-text p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 15px; /* Your specified size */
+    color: #A6A9A8; /* Your specified color */
+    margin-top: 8px; /* Space between the title and this text */
+  }
+
+  
+
+  
+  /* Include additional styles for other elements as needed */
+  

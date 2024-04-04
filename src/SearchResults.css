@@ -1,0 +1,11 @@
+/* SearchResultsPage.css */
+.search-results-page {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .content {
+    display: flex;
+    width: 100%;
+  }
+  

@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+.booking-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.booking-option {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  flex: 1; 
+}
+
+
+.booking-option:last-child,
+.search-button {
+  flex: 0 0 auto;
+}
+
+.booking-label {
+  font-size: 14px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-icon {
+  color: #2AB683;
+  font-size: 13px;
+  margin-left: 3px;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  width: 100%; 
+}
+
+.booking-input,
+.booking-input-with-icon {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  width: 100%; 
+}
+
+
+.booking-input-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+
+.input-icon {
+  margin-right: 5px;
+}
+
+/* Reset margin for the last booking option to avoid extra spacing */
+.booking-option:last-child {
+  margin-right: 0;
+}
+
+.search-button {
+  background-color: #42B683;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  width: 60px;
+  height: 60px;
+  transition: background-color 0.3s ease; /* Smooth transition for the background-color property */
+}
+
+.search-button:hover {
+  background-color: #229e6f; /* A darker shade of green */
+}
+
+
+
