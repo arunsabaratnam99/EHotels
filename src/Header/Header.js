@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = ({ user }) => {
@@ -14,7 +14,8 @@ const Header = ({ user }) => {
         </div>
       )}
       <div className="header-center">
-        <div className="header-title">Goatel</div>
+        {/* Use Link component to navigate to home ("/") when clicked */}
+        <Link to="/" className="header-title">Goatel</Link>
       </div>
     </div>
   );

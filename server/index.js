@@ -14,7 +14,7 @@ app.use(express.json());
 
 //ROUTES//
 
-app.post("/customer", async(req, res) =>{
+app.get("/customer", async(req, res) =>{
 
     const customerid = req.body["CustomerID"];
     const dateofregistration = req.body["DateOfRegistration"];
@@ -25,8 +25,8 @@ app.post("/customer", async(req, res) =>{
     const email = req.body["Email"];
     const phonenumber = req.body["PhoneNumber"];
       
-      const query =  `INSERT INTO "Customer" ("CustomerID", "DateOfRegistration", "FullName", "City", "Province", "StreetName", "Email", "PhoneNumber") VALUES('${customerid}', '${dateofregistration}', '${fullname}', '${city}', '${province}', '${streetname}', '${email}', '${phonenumber}');`;
-      //const query = 'SELECT * FROM "Customer"';
+      //const query =  `INSERT INTO "Customer" ("CustomerID", "DateOfRegistration", "FullName", "City", "Province", "StreetName", "Email", "PhoneNumber") VALUES('${customerid}', '${dateofregistration}', '${fullname}', '${city}', '${province}', '${streetname}', '${email}', '${phonenumber}');`;
+      const query = 'SELECT * FROM "Customer"';
 
       try {
         const newCustomer = await pool.query(query);

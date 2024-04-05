@@ -41,10 +41,26 @@
   font-family: 'Encode Sans Semi Condensed', sans-serif;
   font-size: 31px;
   font-weight: 500;
-  position: absolute; 
-  left: 50%; 
-  transform: translateX(-50%); 
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   margin: 0 auto;
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Take the default text color */
+  transition: color 0.3s ease; /* Transition for color change */
+}
+
+.header-title:hover {
+  color: #229e6f; /* Darker color on hover */
+}
+
+.header-title a {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Set your normal text color */
+}
+
+.header-title a:hover {
+  color: #229e6f; /* Darker color on hover */
 }
 
 .auth-buttons button {
