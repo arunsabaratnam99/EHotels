@@ -12,25 +12,54 @@ const SearchFilters = () => {
     const [guests, setGuests] = useState(searchParams.get("guests") || '');
     const [rooms, setRooms] = useState(searchParams.get("rooms") || '');
     const [selectedPrices, setSelectedPrices] = useState([]);
-    const [selectedRatings, setSelectedRatings] = useState([]);
+    const [selectedRatings, setSelectedRatings] = useState(['any']);
+    const [hotelChains, setHotelChains] = useState([]);
+    const [selectedHotelChain, setSelectedHotelChain] = useState('any');
 
     useEffect(() => {
         const params = new URLSearchParams();
         if (selectedPrices.length) params.append("price", selectedPrices.join(','));
         if (selectedRatings.length) params.append("rating", selectedRatings.join(','));
         setSearchParams(params);
+
+        const fetchHotelChains = async () => {
+            const response = await fetch('http://localhost:3001/get-all-hotelchains');
+            const data = await response.json();
+            setHotelChains(data.rows); // Assuming the data comes in a property named 'rows'
+        };
+
+        fetchHotelChains();
+
     }, [selectedPrices, selectedRatings, setSearchParams]);
 
     const handleSearchClick = () => {
+        // Perform validation
+     if (new Date(checkIn) >= new Date(checkOut)) {
+        alert('Check-in date must be before check-out date.');
+        return;
+      }   
+
       const searchParams = new URLSearchParams();
       if (destination) searchParams.append("destination", destination);
       if (checkIn) searchParams.append("checkIn", checkIn);
       if (checkOut) searchParams.append("checkOut", checkOut);
       if (guests) searchParams.append("guests", guests);
       if (rooms) searchParams.append("rooms", rooms);
+      if (selectedHotelChain) searchParams.append("hotelChain", selectedHotelChain);
       selectedPrices.forEach(price => searchParams.append("price", price));
       selectedRatings.forEach(rating => searchParams.append("rating", rating));
 
+      //output the search parameters to the console without using searchParams.toString()
+      console.log('Search Filters:', {
+        destination,
+        checkIn,
+        checkOut,
+        guests,
+        rooms,
+        selectedHotelChain,
+        selectedPrices,
+        selectedRatings
+      });
     };
 
     return (
@@ -43,11 +72,11 @@ const SearchFilters = () => {
                 </div>
                 <div className="search-input">
                     <label htmlFor="check-in">Check-in Date</label>
-                    <input type="date" id="check-in" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} />
+                    <input type="date" id="check-in" value={checkIn} min={new Date().toISOString().split('T')[0]} onChange={(e) => setCheckIn(e.target.value)} />
                 </div>
                 <div className="search-input">
                     <label htmlFor="check-out">Check-out Date</label>
-                    <input type="date" id="check-out" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} />
+                    <input type="date" id="check-out" value={checkOut} min={checkIn ? new Date(new Date(checkIn).setDate(new Date(checkIn).getDate() + 1)).toISOString().split('T')[0] : ''} onChange={(e) => setCheckOut(e.target.value)} />
                 </div>
                 <div className="search-input-group">
                     <div className="search-input half">
@@ -65,27 +94,32 @@ const SearchFilters = () => {
             <div className="filter-section-wrapper">
                 <div className="filter-input">
                     <h2 className="filter-title">Hotel chain</h2>
-                    <select id="hotel-chain">
-                        {/* Dropdown options */}
+                    <select id="hotel-chain" value = {selectedHotelChain} onChange = {(e) => setSelectedHotelChain(e.target.value)}>
+                        <option value="any">Any</option>
+                        {hotelChains.map(chain => (
+                            <option key={chain.ChainID} value={chain.ChainID}>
+                                {chain.Name} 
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className="filter-input">
                     <h2 className="filter-title">Price per night</h2>
                     <div className="checkbox-group">
                         <label>
-                            <input type="checkbox" name="price" value="under150" onChange={() => setSelectedPrices(prev => prev.includes('under50') ? prev.filter(p => p !== 'under50') : [...prev, 'under50'])} checked={selectedPrices.includes('under50')} />
+                            <input type="checkbox" name="price" value="under150" onChange={() => setSelectedPrices(prev => prev.includes('under150') ? prev.filter(p => p !== 'under150') : [...prev, 'under150'])} checked={selectedPrices.includes('under150')} />
                             Under $150
                         </label>
                         <label>
-                            <input type="checkbox" name="price" value="150to250" onChange={() => setSelectedPrices(prev => prev.includes('50to100') ? prev.filter(p => p !== '50to100') : [...prev, '50to100'])} checked={selectedPrices.includes('50to100')} />
+                            <input type="checkbox" name="price" value="150to250" onChange={() => setSelectedPrices(prev => prev.includes('150to250') ? prev.filter(p => p !== '150to250') : [...prev, '150to250'])} checked={selectedPrices.includes('150to250')} />
                             $150 to $250
                         </label>
                         <label>
-                            <input type="checkbox" name="price" value="250to350" onChange={() => setSelectedPrices(prev => prev.includes('100to150') ? prev.filter(p => p !== '100to150') : [...prev, '100to150'])} checked={selectedPrices.includes('100to150')} />
+                            <input type="checkbox" name="price" value="250to350" onChange={() => setSelectedPrices(prev => prev.includes('250to350') ? prev.filter(p => p !== '250to350') : [...prev, '250to350'])} checked={selectedPrices.includes('250to350')} />
                             $250 to $350
                         </label>
                         <label>
-                            <input type="checkbox" name="price" value="over350" onChange={() => setSelectedPrices(prev => prev.includes('over150') ? prev.filter(p => p !== 'over150') : [...prev, 'over150'])} checked={selectedPrices.includes('over150')} />
+                            <input type="checkbox" name="price" value="over350" onChange={() => setSelectedPrices(prev => prev.includes('over350') ? prev.filter(p => p !== 'over350') : [...prev, 'over350'])} checked={selectedPrices.includes('over350')} />
                             Over $350
                         </label>
                     </div>
@@ -98,15 +132,15 @@ const SearchFilters = () => {
                             Any
                         </label>
                         <label>
-                            <input type="checkbox" name="rating" value="excellent" onChange={() => setSelectedRatings(prev => prev.includes('excellent') ? prev.filter(r => r !== 'excellent') : [...prev, 'excellent'])} checked={selectedRatings.includes('excellent')} />
+                            <input type="checkbox" name="rating" value="excellent" onChange={() => setSelectedRatings(prev => prev.includes('5Star') ? prev.filter(r => r !== '5Star') : [...prev, '5Star'])} checked={selectedRatings.includes('5Star')} />
                             5 Star
                         </label>
                         <label>
-                            <input type="checkbox" name="rating" value="veryGood" onChange={() => setSelectedRatings(prev => prev.includes('veryGood') ? prev.filter(r => r !== 'veryGood') : [...prev, 'veryGood'])} checked={selectedRatings.includes('veryGood')} />
+                            <input type="checkbox" name="rating" value="veryGood" onChange={() => setSelectedRatings(prev => prev.includes('4Star') ? prev.filter(r => r !== '4Star') : [...prev, '4Star'])} checked={selectedRatings.includes('4Star')} />
                             4 Star
                         </label>
                         <label>
-                            <input type="checkbox" name="rating" value="good" onChange={() => setSelectedRatings(prev => prev.includes('good') ? prev.filter(r => r !== 'good') : [...prev, 'good'])} checked={selectedRatings.includes('good')} />
+                            <input type="checkbox" name="rating" value="good" onChange={() => setSelectedRatings(prev => prev.includes('3Star') ? prev.filter(r => r !== '3Star') : [...prev, '3Star'])} checked={selectedRatings.includes('3Star')} />
                             3 Star
                         </label>
                     </div>

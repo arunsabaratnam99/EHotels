@@ -55,9 +55,9 @@ app.get("/get-all-customers", async (req, res) => {
   }
 });
 
-/*
+
 //get all hotel chains
-app.get("/hotelchain", async (req, res) => {
+app.get("/get-all-hotelchains", async (req, res) => {
   try {
       const allHotelChains = await pool.query('SELECT * FROM "HotelChain"');
       res.json(allHotelChains);
@@ -78,7 +78,74 @@ app.get("/hotelchain/:chainid", async (req, res) =>{
     console.error(err.message)
   }
 })
-*/
+
+app.get("/search-hotels", async (req, res) => {
+  try {
+    // Destructure and obtain query params
+    const { hotelChain, city, priceRange, rating } = req.query;
+
+    // Start the query with a base
+    let query = `SELECT * FROM "Hotel"`;
+
+    // Initialize an array to hold query parameters for parameterized queries
+    let queryParams = [];
+
+    // Array to hold individual query conditions to be joined with 'AND'
+    let conditions = [];
+
+    // Check if each filter is provided and add to the conditions
+    if (hotelChain && hotelChain !== 'any') {
+      queryParams.push(hotelChain);
+      conditions.push(`"ChainID" = $${queryParams.length}`);
+    }
+
+    if (city) {
+      queryParams.push(city);
+      conditions.push(`"City" = $${queryParams.length}`);
+    }
+
+    // Assuming priceRange is a string like 'under150', '150to250', etc.
+    if (priceRange) {
+      // You'll need to define the logic to convert priceRange into actual price conditions
+      // This is a simplistic example where I assume the range uses 'to' as a separator
+      let [minPrice, maxPrice] = priceRange.split('to').map(Number);
+      if (minPrice) {
+        queryParams.push(minPrice);
+        conditions.push(`"PricePerNight" >= $${queryParams.length}`);
+      }
+      if (maxPrice) {
+        queryParams.push(maxPrice);
+        conditions.push(`"PricePerNight" <= $${queryParams.length}`);
+      }
+    }
+
+    if (rating && rating !== 'any') {
+      queryParams.push(rating);
+      conditions.push(`"Rating" = $${queryParams.length}`);
+    }
+
+    // If there are any conditions, append them to the query
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    // Execute the query with the collected parameters
+    const { rows } = await pool.query(query, queryParams);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'No hotels found matching the criteria' });
+    }
+
+    // Return the matching hotels
+    res.json(rows);
+  } catch (error) {
+    console.error('Error searching for hotels:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 
 /*
 app.listen(4000, () =>{
