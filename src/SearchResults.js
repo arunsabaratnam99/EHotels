@@ -1,15 +1,38 @@
-// SearchResultsPage.js
-import React from 'react';
-import SearchFilters from './SearchFilters/SearchFilters'; // Update import paths as necessary
-import './SearchResults.css'; // Make sure to create and import this CSS file
+import React, { useState } from 'react';
+import Chip from './Search Page/Chip'; // Update the import path if necessary
+import SearchFilters from './SearchFilters/SearchFilters'; // Update the import path if necessary
 
 const SearchResultsPage = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  const [showChips, setShowChips] = useState(false);
+
+  const handleSearch = (searchData) => {
+    // Perform the search and update searchResults state
+    setSearchResults(searchData);
+    setShowChips(true);
+  };
+
+  const handleChipClose = () => {
+    setShowChips(false);
+  };
+
+  const handleBook = () => {
+    // Implement booking logic here
+    console.log('Book button clicked!');
+  };
+
   return (
     <div className="search-results-page">
-      <div className="content">
-        <SearchFilters />
-        {/* Rest of the search results page content */}
-      </div>
+      <SearchFilters onSearch={handleSearch} />
+      {showChips && (
+        <div className="chips-container">
+          {/* Assuming searchResults is an array of labels */}
+          {searchResults.map((label, index) => (
+            <Chip key={index} label={label} onBook={handleBook} onClose={handleChipClose} />
+          ))}
+        </div>
+      )}
+      {/* Rest of the search results page content */}
     </div>
   );
 };

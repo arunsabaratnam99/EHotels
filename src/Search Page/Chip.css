@@ -1,0 +1,22 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  margin-right: 8px;
+  background-color: #ff0000; /* Red background color */
+  color: #ffffff; /* White text color */
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.chip span {
+  margin-right: 8px;
+}
+
+.chip button {
+  margin-left: 8px;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
